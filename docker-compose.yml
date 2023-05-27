@@ -1,0 +1,67 @@
+version: "3"
+networks:
+  calendarnetwork:
+
+services:
+  calendar_mysql:
+    image: mysql:5.7.8
+    container_name: calendar_localserver
+    # command: mysqld --sql_mode=""
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    environment:
+      MYSQL_DATABASE: main_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - "calendarnetwork"
+  calendar_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    links:
+      - calendar_mysql:mysql
+    environment:
+      MYSQL_USERNAME: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+      PMA_HOST: calendar_mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
+      UPLOAD_LIMIT: 3000000000
+    ports:
+      - "${PHP_MYADMIN_PORT:-85}:80"
+    volumes:
+      - /docker/sessions
+    networks:
+      - "calendarnetwork"
+  calendar_redis:
+    image: docker.io/bitnami/redis:4.0.14
+    container_name:   calendar_redis_server
+    ports:
+      - "${REDIS_PORT:-6380}:6379"
+    volumes:
+      - ./docker/docker-runtime/redis/data:/data
+    networks:
+      - "calendarnetwork"
+
+  calendar_server:
+    build: .
+    container_name: "calendar_server"
+    ports:
+      - "${APACHE_PORT:-81}:80"
+    volumes:
+      - "./application:/var/www/public_html"
+      - "./dist:/var/www/dist"
+      - "~/.dockerProfile:/root"
+    working_dir: "/var/www/public_html"
+    depends_on:
+      - "calendar_mysql"
+      - "calendar_redis"
+    networks:
+      - "calendarnetwork"
