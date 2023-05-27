@@ -54,7 +54,7 @@ services:
     build: .
     container_name: "calendar_server"
     ports:
-      - "${APACHE_PORT:-81}:80"
+      - "${APACHE_PORT:-8080}:80"
     volumes:
       - "./application:/var/www/public_html"
       - "./dist:/var/www/dist"
