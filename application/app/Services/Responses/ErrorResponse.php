@@ -3,7 +3,7 @@
 namespace App\Services\Responses;
 
 
-use App\Traits\Responses\Response;
+use App\Traits\Response;
 
 class ErrorResponse
 {

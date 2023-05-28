@@ -27,3 +27,4 @@ Homestead.json
 /docker-compose.yml
 /.env.example
 .idea/
+/application/storage
