@@ -10,6 +10,10 @@ class RepositoryServiceProvider extends AppServiceProvider
             'App\Interfaces\RepositoryInterface',
             'App\Repositories\BaseRepository'
         );
+        $this->app->bind(
+            'App\Interfaces\EventInterface',
+            'App\Repositories\EventRepository'
+        );
     }
 
 }

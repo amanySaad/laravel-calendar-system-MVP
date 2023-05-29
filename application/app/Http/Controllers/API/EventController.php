@@ -5,16 +5,35 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\StoreEventRequest;
 use App\Http\Requests\API\UpdateEventRequest;
+use App\Interfaces\EventInterface;
 use App\Models\Event;
+use App\Resources\Events\ListEventsResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use App\Services\Events\StoreEventService;
 
 class EventController extends Controller
 {
+    protected $eventInterface;
+    public function __construct(EventInterface $eventInterface)
+    {
+        $this->eventInterface = $eventInterface;
+    }
+
+
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        try{
+            $filters = [];
+            $events = $this->eventInterface->paginateByCriteria($filters);
+            return $this->success(ListEventsResource::collection($events))->pagination($events);
+        }catch (\Exception $exception){
+           return $this->error()->server();
+        }
     }
 
     /**
@@ -28,9 +47,9 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventRequest $request)
+    public function store(StoreEventRequest $request,StoreEventService $service)
     {
-        //
+        return $service->handle($request,$this->eventInterface);
     }
 
     /**

@@ -21,3 +21,9 @@ Route::controller(\App\Http\Controllers\API\RegisterController::class)->group(fu
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
+
+/* Events Apis Section*/
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('events', \App\Http\Controllers\API\EventController::class);
+});
+

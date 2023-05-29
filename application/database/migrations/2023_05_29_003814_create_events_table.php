@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('location_name')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->dateTime('date_time')->nullable();
             $table->json('invitees')->nullable();
             $table->json('extra_fields')->nullable();
