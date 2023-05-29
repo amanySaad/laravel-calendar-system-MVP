@@ -8,9 +8,11 @@ use App\Http\Requests\API\UpdateEventRequest;
 use App\Interfaces\EventInterface;
 use App\Models\Event;
 use App\Resources\Events\ListEventsResource;
+use App\Services\Events\UpdateEventService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\Events\StoreEventService;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -71,9 +73,9 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEventRequest $request, Event $event)
+    public function update(StoreEventRequest $request, Event $event, UpdateEventService $service)
     {
-        //
+        return $service->handle($request, $event);
     }
 
     /**
