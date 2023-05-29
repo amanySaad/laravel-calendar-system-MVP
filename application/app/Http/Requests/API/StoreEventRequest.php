@@ -25,7 +25,7 @@ class StoreEventRequest extends FormRequest
         return [
             'date_time' =>'required',
             'latitude' => 'required',
-            'logitude' => 'required',
+            'longitude' => 'required',
             'invitees'=>'array'
         ];
     }
