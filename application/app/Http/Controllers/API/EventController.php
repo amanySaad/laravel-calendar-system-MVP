@@ -8,6 +8,7 @@ use App\Http\Requests\API\UpdateEventRequest;
 use App\Interfaces\EventInterface;
 use App\Models\Event;
 use App\Resources\Events\ListEventsResource;
+use App\Services\Events\DeleteEventService;
 use App\Services\Events\UpdateEventService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -81,8 +82,8 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy(Event $event, DeleteEventService $service)
     {
-        //
+        return $service->handle($event);
     }
 }

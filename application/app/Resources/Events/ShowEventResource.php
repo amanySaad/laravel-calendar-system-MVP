@@ -16,6 +16,7 @@ class ShowEventResource extends JsonResource
     {
         $basic = [
             'id' => $this->id,
+            'creator' => (is_null($this->user->name)) ? $this->user->email : $this->user->name,
             'location_name' => $this->location_name,
             'date_time' => $this->date_time,
             'latitude' => $this->latitude,
