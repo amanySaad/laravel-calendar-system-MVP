@@ -13,8 +13,8 @@ class FetchWeatherService
     }
 
 
-    public function handle($lat, $long){
-      return $this->weather->currentWeather($lat, $long);
+    public function handle($lat, $long, $date){
+      return $this->weather->currentWeather($lat, $long, $date);
     }
 
 

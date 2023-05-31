@@ -19,11 +19,11 @@ class OpenWeatherMapAdapter implements WeatherProviderInterface
         $this->apiKey = $apiKey;
     }
 
-    public function currentWeather(float $lat, float $lon): ? WeatherDataDTO
+    public function currentWeather(float $lat, float $lon, string $date): ? WeatherDataDTO
     {
         $response = $this->client->request(
             'GET',
-            "https://api.openweathermap.org/data/2.5/weather?units=metric&lat={$lat}&lon={$lon}&appid={$this->apiKey}",
+            "https://api.openweathermap.org/data/2.5/weather?units=metric&lat={$lat}&lon={$lon}&dt={$date}&appid={$this->apiKey}",
             ['http_errors' => false]
         );
 

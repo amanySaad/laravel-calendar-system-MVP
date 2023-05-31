@@ -21,7 +21,7 @@ class ShowEventService
     {
         if($this->checkAuthorization($event)){
             try {
-               $event['weather']=$this->weather->currentWeather($event->latitude,$event->longitude);
+               $event['weather']=$this->weather->currentWeather($event->latitude,$event->longitude,strtotime($event->date_time));
                 return $this->success(new ShowEventResource($event))->updated();
             } catch (\Exception $exception) {
                 return $this->error()->server();

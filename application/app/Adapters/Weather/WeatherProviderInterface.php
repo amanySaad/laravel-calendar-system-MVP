@@ -12,5 +12,5 @@ interface WeatherProviderInterface
      * @return WeatherDataDTO|null
      * @throws InvalidArgumentException
      */
-    public function currentWeather(float $lat, float $lon): ?WeatherDataDTO;
+    public function currentWeather(float $lat, float $lon, string $date): ?WeatherDataDTO;
 }
