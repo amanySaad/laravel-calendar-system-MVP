@@ -41,4 +41,8 @@ final class WeatherDataDTO
     {
         return $this->humidity;
     }
+    public function allToArray(): array
+    {
+         return ["description" =>$this->description, "temperature" => $this->temperature, "pressure" => $this->pressure, "humidity" => $this->humidity];
+    }
 }

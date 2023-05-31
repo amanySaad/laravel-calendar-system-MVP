@@ -2,17 +2,17 @@
 
 namespace App\Adapters\Weather;
 
-use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
 use InvalidArgumentException;
 
-class OpenweathermapAdapter implements WeatherProviderInterface
+class OpenWeatherMapAdapter implements WeatherProviderInterface
 {
-    private ClientInterface $client;
+    private Client $client;
     private string $apiKey;
 
     public function __construct(
-        ClientInterface $client,
-        string $apiKey
+        Client $client,
+        string $apiKey = "471e6fc8511b1a2e2af655140ca0835d"
     )
     {
         $this->client = $client;
@@ -35,7 +35,6 @@ class OpenweathermapAdapter implements WeatherProviderInterface
             return null;
         }
         $data = json_decode($response->getBody()->getContents());
-
         return new WeatherDataDTO(
             $data->weather[0]->description,
             $data->main->temp,

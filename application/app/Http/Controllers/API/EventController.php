@@ -11,10 +11,8 @@ use App\Resources\Events\ListEventsResource;
 use App\Services\Events\DeleteEventService;
 use App\Services\Events\ShowEventService;
 use App\Services\Events\UpdateEventService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Services\Events\StoreEventService;
-use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {

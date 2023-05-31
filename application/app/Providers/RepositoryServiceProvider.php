@@ -14,6 +14,11 @@ class RepositoryServiceProvider extends AppServiceProvider
             'App\Interfaces\EventInterface',
             'App\Repositories\EventRepository'
         );
+
+        $this->app->bind(
+            'App\Adapters\Weather\WeatherProviderInterface',
+            'App\Adapters\Weather\OpenWeatherMapAdapter'
+        );
     }
 
 }
