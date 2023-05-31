@@ -9,6 +9,7 @@ use App\Interfaces\EventInterface;
 use App\Models\Event;
 use App\Resources\Events\ListEventsResource;
 use App\Services\Events\DeleteEventService;
+use App\Services\Events\ShowEventService;
 use App\Services\Events\UpdateEventService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -58,9 +59,10 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(Event $event, ShowEventService $service)
     {
-        //
+        return $service->handle($event);
+
     }
 
     /**

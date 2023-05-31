@@ -15,8 +15,8 @@ class Event extends Model
     /**
      * Get the user associated with the Event.
      */
-    public function user(): HasOne
+    public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }
