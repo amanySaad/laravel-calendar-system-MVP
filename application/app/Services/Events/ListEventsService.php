@@ -18,7 +18,7 @@ class ListEventsService
             if($request->has('date')){
                 $specific_date = Carbon::parse($request->date)->format('Y-m-d');
             }
-            $events = $model->paginateByCriteria($filters,['*'],['user'],'id', $specific_date);
+            $events = $model->paginateByCriteria($filters,['*'],['user'],'date_time', $specific_date);
             return $this->success(ListEventsResource::collection($events))->pagination($events);
 
         } catch (\Exception $exception) {
