@@ -13,9 +13,13 @@ class EventRepository extends BaseRepository implements EventInterface
         parent::__construct($model);
     }
 
-    public function paginateByCriteria(array $criteria, array $columns = ['*'], array $relations = []): LengthAwarePaginator
+    public function paginateByCriteria(array $criteria, array $columns = ['*'], array $relations = [],$sort='id',$specific_date = null): LengthAwarePaginator
     {
-        return $this->newQuery()->select($columns)->with($relations)->where($criteria)->paginate();
+        $query = $this->newQuery()->select($columns)->with($relations)->where($criteria);
+        if($specific_date){
+            $query = $query->whereDate('date_time',$specific_date);
+        }
+        return $query->orderBy($sort,'DESC')->paginate();
     }
 
 }

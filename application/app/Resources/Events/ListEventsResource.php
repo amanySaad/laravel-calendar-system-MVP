@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Resources\Events;
-
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ListEventsResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -22,10 +22,12 @@ class ListEventsResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'invitees' => (is_null($this->invitees)) ? [] : json_decode($this->invitees),
+            'weather' => (is_null($this->weather)) ? [] : json_decode($this->weather)
         ];
         $extra = (is_null($this->extra_fields)) ? [] : json_decode($this->extra_fields);
         return array_merge($basic,(array) $extra);
     }
+
 
 
 }

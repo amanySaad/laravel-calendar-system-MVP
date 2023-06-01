@@ -9,6 +9,7 @@ use App\Interfaces\EventInterface;
 use App\Models\Event;
 use App\Resources\Events\ListEventsResource;
 use App\Services\Events\DeleteEventService;
+use App\Services\Events\ListEventsService;
 use App\Services\Events\ShowEventService;
 use App\Services\Events\UpdateEventService;
 use Illuminate\Http\Request;
@@ -26,16 +27,13 @@ class EventController extends Controller
 
     /**
      * Display a listing of the resource.
+     * if we have more filters we should use
+     * Pipeline Design Pattern
      */
-    public function index(Request $request)
+    public function index(Request $request,ListEventsService $service)
     {
-        try{
-            $filters = [];
-            $events = $this->eventInterface->paginateByCriteria($filters);
-            return $this->success(ListEventsResource::collection($events))->pagination($events);
-        }catch (\Exception $exception){
-           return $this->error()->server();
-        }
+        return $service->handle($request,$this->eventInterface);
+
     }
 
     /**

@@ -13,6 +13,6 @@ interface EventInterface extends RepositoryInterface
      * @param array $relations
      * @return Paginator
      */
-    public function paginateByCriteria(array $criteria, array $columns = ['*'], array $relations = []): LengthAwarePaginator;
+    public function paginateByCriteria(array $criteria, array $columns = ['*'], array $relations = [],$sort='id',$specific_date = null): LengthAwarePaginator;
 
 }
