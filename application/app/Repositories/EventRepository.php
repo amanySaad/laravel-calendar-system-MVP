@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\EventInterface;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EventRepository extends BaseRepository implements EventInterface
@@ -20,6 +21,16 @@ class EventRepository extends BaseRepository implements EventInterface
             $query = $query->whereDate('date_time',$specific_date);
         }
         return $query->orderBy($sort,'DESC')->paginate();
+    }
+
+    public function getLocations($distinct_column,$specific_date = null) : Collection
+    {
+        $query = $this->newQuery();
+        if($specific_date){
+            $query = $query->whereDate('date_time',$specific_date);
+        }
+        return $query->distinct()->get([$distinct_column]);
+
     }
 
 }

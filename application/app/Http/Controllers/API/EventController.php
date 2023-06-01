@@ -7,9 +7,9 @@ use App\Http\Requests\API\StoreEventRequest;
 use App\Http\Requests\API\UpdateEventRequest;
 use App\Interfaces\EventInterface;
 use App\Models\Event;
-use App\Resources\Events\ListEventsResource;
 use App\Services\Events\DeleteEventService;
 use App\Services\Events\ListEventsService;
+use App\Services\Events\ListEventsLocationsService;
 use App\Services\Events\ShowEventService;
 use App\Services\Events\UpdateEventService;
 use Illuminate\Http\Request;
@@ -31,6 +31,17 @@ class EventController extends Controller
      * Pipeline Design Pattern
      */
     public function index(Request $request,ListEventsService $service)
+    {
+        return $service->handle($request,$this->eventInterface);
+
+    }
+
+ /**
+     * Display a listing of the locations.
+     * Based on specific date
+     *
+     */
+    public function getLocations(Request $request,ListEventsLocationsService $service)
     {
         return $service->handle($request,$this->eventInterface);
 

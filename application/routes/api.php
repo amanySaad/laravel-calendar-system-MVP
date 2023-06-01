@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ Route::controller(\App\Http\Controllers\API\RegisterController::class)->group(fu
 
 /* Events Apis Section*/
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('events', \App\Http\Controllers\API\EventController::class);
+    Route::get('events/locations',[EventController::class, 'getLocations']);
+    Route::apiResource('events', EventController::class);
 });
 
